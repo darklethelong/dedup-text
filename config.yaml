@@ -1,0 +1,40 @@
+# Text Deduplication Configuration
+
+# Data Settings
+data:
+  input_file: "data/raw/sample_call_center.csv"
+  output_file: "data/processed/deduplicated.csv"
+  text_column: "texts"
+  label_column: "labels"
+
+# Model Settings
+model:
+  name: "all-MiniLM-L6-v2"  # Efficient and accurate model for semantic similarity
+  batch_size: 32
+  device: "auto"  # Will use GPU if available
+
+# Deduplication Settings
+deduplication:
+  initial_threshold: 0.75
+  min_threshold: 0.65
+  max_threshold: 0.85
+  adaptive_threshold: true
+  min_text_length: 3
+  max_text_length: 1000
+  
+# Clustering Settings
+clustering:
+  method: "agglomerative"  # Options: agglomerative, dbscan
+  min_cluster_size: 2
+  
+# Visualization Settings
+visualization:
+  similarity_heatmap_max_samples: 100
+  cluster_viz_max_samples: 1000
+  interactive_mode: true
+  
+# Logging Settings
+logging:
+  level: "INFO"
+  file: "dedup_log.txt"
+  console: true 

@@ -1,0 +1,52 @@
+texts,labels
+"I've been charged twice for the same transaction",complaint
+"There's a duplicate charge on my account",complaint
+"I see two identical charges on my statement",complaint
+"My card was charged twice",complaint
+"I want to report a double charge",complaint
+"The system charged me multiple times",complaint
+"Hello, how can I help you today?",non-complaint
+"Hi, what can I assist you with?",non-complaint
+"Welcome to customer service, how may I help?",non-complaint
+"Good morning, how can I be of assistance?",non-complaint
+"My name is John, I'll be helping you today",non-complaint
+"I'm Sarah, and I'll be assisting you",non-complaint
+"The service has been down for hours",complaint
+"I can't access my account since morning",complaint
+"Your system is not working",complaint
+"The website is completely down",complaint
+"The app keeps crashing",complaint
+"I've been trying to log in all day",complaint
+"Could you please verify your account number?",non-complaint
+"Can you confirm your account details?",non-complaint
+"I'll need to verify your identity",non-complaint
+"Let me check your account information",non-complaint
+"First, I need to confirm your details",non-complaint
+"Thank you for waiting",non-complaint
+"I appreciate your patience",non-complaint
+"Thanks for holding",non-complaint
+"Just a moment please",non-complaint
+"I never authorized this payment",complaint
+"This is an unauthorized transaction",complaint
+"Someone made a purchase without my permission",complaint
+"I don't recognize this transaction",complaint
+"This charge wasn't made by me",complaint
+"Let me transfer you to our specialist",non-complaint
+"I'll connect you with our expert team",non-complaint
+"Allow me to transfer your call",non-complaint
+"Is there anything else I can help you with?",non-complaint
+"Do you need assistance with anything else?",non-complaint
+"Is there something else you'd like to know?",non-complaint
+"My credit card was declined",complaint
+"The payment keeps getting rejected",complaint
+"My card is not working",complaint
+"The transaction won't go through",complaint
+"Have a great day!",non-complaint
+"Thank you for calling",non-complaint
+"Thanks for choosing our service",non-complaint
+"We value your business",non-complaint
+"I've been a customer for 10 years and this is unacceptable",complaint
+"This is terrible customer service",complaint
+"I want to speak to a supervisor",complaint
+"This is the worst service ever",complaint
+"I'm extremely disappointed",complaint 
