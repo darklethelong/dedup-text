@@ -9,23 +9,23 @@ data:
 
 # Model Settings
 model:
-  name: "all-MiniLM-L6-v2"  # Efficient and accurate model for semantic similarity
+  name: "BAAI/bge-base-en-v1.5"  # Efficient and accurate model for semantic similarity
   batch_size: 32
   device: "auto"  # Will use GPU if available
 
 # Deduplication Settings
 deduplication:
-  initial_threshold: 0.75
-  min_threshold: 0.65
-  max_threshold: 0.85
+  initial_threshold: 0.8  # Similarity threshold (will be converted to distance)
+  min_threshold: 0.7
+  max_threshold: 0.9
   adaptive_threshold: true
   min_text_length: 3
   max_text_length: 1000
   
 # Clustering Settings
 clustering:
-  method: "agglomerative"  # Options: agglomerative, dbscan
-  min_cluster_size: 2
+  method: "dbscan"  # Using DBSCAN for better semantic clustering
+  min_cluster_size: 2  # Minimum number of similar texts to form a cluster
   
 # Visualization Settings
 visualization:

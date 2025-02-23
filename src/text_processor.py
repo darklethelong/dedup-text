@@ -73,7 +73,18 @@ class TextProcessor:
         """Compute cosine similarity matrix between embeddings."""
         try:
             self.logger.info("Computing similarity matrix...")
-            return cosine_similarity(embeddings)
+            similarity_matrix = cosine_similarity(embeddings)
+            
+            # Log some similarity scores for debugging
+            self.logger.info("Sample similarity scores:")
+            for i in range(len(similarity_matrix)):
+                for j in range(i + 1, len(similarity_matrix)):
+                    if similarity_matrix[i, j] > 0.4:  # Only log relatively similar texts
+                        self.logger.info(f"Similarity {similarity_matrix[i, j]:.3f} between:")
+                        self.logger.info(f"Text 1: {self.texts[i]}")
+                        self.logger.info(f"Text 2: {self.texts[j]}\n")
+            
+            return similarity_matrix
         except Exception as e:
             self.logger.error(f"Error computing similarity matrix: {str(e)}")
             raise
@@ -110,12 +121,15 @@ class TextProcessor:
                 labels = clustering.fit_predict(distances)
                 
             elif self.config['clustering']['method'] == 'dbscan':
+                # Convert similarity to distance and ensure non-negative values
+                distances = np.clip(1 - similarity_matrix, 0, 2)  # Clip to valid range [0, 2]
+                
                 clustering = DBSCAN(
-                    eps=self.config['deduplication']['initial_threshold'],
+                    eps=1 - self.config['deduplication']['initial_threshold'],  # Convert threshold to distance
                     min_samples=self.config['clustering']['min_cluster_size'],
                     metric='precomputed'
                 )
-                labels = clustering.fit_predict(1 - similarity_matrix)
+                labels = clustering.fit_predict(distances)
             
             else:
                 raise ValueError(f"Unknown clustering method: {self.config['clustering']['method']}")
@@ -187,16 +201,16 @@ class TextProcessor:
     def process(self, df: pd.DataFrame) -> Tuple[pd.DataFrame, Dict, np.ndarray, np.ndarray, np.ndarray]:
         """Main processing pipeline."""
         try:
-            texts = df[self.config['data']['text_column']].tolist()
+            self.texts = df[self.config['data']['text_column']].tolist()  # Store texts for logging
             
             # Compute embeddings
-            embeddings = self.compute_embeddings(texts)
+            embeddings = self.compute_embeddings(self.texts)
             
             # Compute similarity matrix
             similarity_matrix = self.compute_similarity_matrix(embeddings)
             
             # Cluster similar texts
-            labels = self.cluster_texts(similarity_matrix, texts)
+            labels = self.cluster_texts(similarity_matrix, self.texts)
             
             # Find representatives and deduplicate
             deduplicated_df, dedup_info = self.find_cluster_representatives(
